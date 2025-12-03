@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleEditRequest;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ArticleController extends Controller
 {
@@ -30,16 +32,16 @@ class ArticleController extends Controller
     */
     public function store(ArticleRequest $request)
     {
-
+        
         $path = $request->file('img')->store('img', 'public');
-
+        
         Article::create([
             'title' => $request->title,
             'subtitle' => $request->subtitle,
             'body' => $request->body,
             'img' => $path
         ]);
-        return redirect()->back()->with('message', 'Articolo pubblicato correttamente');
+        return redirect()->route('article.index')->with('successMessage', 'Articolo modificato correttamente');
     }
     
     /**
@@ -55,15 +57,28 @@ class ArticleController extends Controller
     */
     public function edit(Article $article)
     {
-        //
+        return view('article.edit', compact('article'));
     }
     
     /**
     * Update the specified resource in storage.
     */
-    public function update(Request $request, Article $article)
+    public function update(ArticleEditRequest $request, Article $article)
     {
-        //
+        $article->update([
+            $article->title = $request->title,
+            $article->subtitle = $request->subtitle,
+            $article->body = $request->body,
+        ]);
+        
+        if($request->img){
+            $request->validate(['img'=>'image']);
+            $article->update([
+                $article->img = $request->file('img')->store('img', 'public')
+            ]);
+        }
+        return redirect()->route('article.index')->with('successMessage', 'Articolo modificato correttamente');
+        
     }
     
     /**
@@ -71,6 +86,7 @@ class ArticleController extends Controller
     */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return redirect()->route('article.index')->with('successMessage', 'Articolo cancellato correttamente');
     }
 }

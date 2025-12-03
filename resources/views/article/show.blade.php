@@ -15,12 +15,35 @@
         </div>
     </section>
     
-    <section class="d-flex flex-column min-vh-100">
-        <div class="container flex-grow-1 d-flex align-items-center justify-content-center">
-            <div class="text-center">
-                <p class="lead fst-italic">{{$article->body}}</p>
+    <section class="pt-5">
+        <div class="container d-flex justify-content-center">
+            <div class="rounded overflow-hidden border" style="width: 300px; height: 300px;">
+                <img src="{{ asset('storage/' . $article->img) }}"
+                class="w-100 h-100 object-fit-cover"
+                alt="immagine di {{ $article->title }}">
             </div>
         </div>
     </section>
+    
+    <section class="d-flex flex-column min-vh-100 mb-1">
+        <div class="container flex-grow-1 d-flex align-items-center justify-content-center my-0">
+            <div class="text-center border border-white rounded p-3">
+                <p class="lead fst-italic fs-6">{{$article->body}}</p>
+            </div>
+        </div>
+        
+    </section>
+    
+    <div class="row pb-2">
+        <form action="{{route('article.delete', compact('article'))}}" method="POST" class="d-flex justify-content-center">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-light w-25 mx-0 d-flex align-items-center justify-content-center">
+                Elimina articolo
+            </button>
+        </form>
+    </div>
+    
+    
     
 </x-layout>

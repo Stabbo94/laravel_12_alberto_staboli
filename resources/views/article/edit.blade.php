@@ -16,36 +16,38 @@
     <section>
         <div class="container mt-4">
             <div class="row justify-content-center">
+                @if ($errors->any())
+                <div class="alert alert-danger col-12 text-center">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <div class="col-12 col-md-6">
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                    <form action="{{route('article.store')}}" method="POST" enctype="multipart/form-data">
+                    
+                    <form action="{{route('article.update', compact('article'))}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="mb-3">
                             <label for="title" class="form-label">Titolo dell'articolo;</label>
-                            <input name="title" type="text" class="form-control" id="title" value="{{old('title')}}">
+                            <input name="title" type="text" class="form-control" id="title" value="{{$article->title}}">
                         </div>
                         <div class="mb-3">
                             <label for="subtitle" class="form-label">Sottotitolo dell'articolo;</label>
-                            <input name="subtitle" type="text" value="{{old('subtitle')}}" id="subtitle" class="form-control">
+                            <input name="subtitle" type="text" value="{{$article->subtitle}}" id="subtitle" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="body" class="form-label">Contenuto dell'articolo;</label>
-                            <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{old('body')}}</textarea>
+                            <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{$article->body}}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="img" class="form-label">Aggiungi immagine;</label>
                             <input name="img" type="file" class="form-control" id="img">
                         </div>             
                         <button type="submit" class="btn btn-light w-100 mt-4 d-flex align-items-center justify-content-center">
-                            Pubblica articolo
+                            Modifica articolo
                         </button>
                         
                     </form>

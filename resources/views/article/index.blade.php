@@ -20,7 +20,7 @@
             
             @foreach ($articles as $article)
             
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 d-flex justify-content-center">
                 <div class="card mt-4 mx-2">
                     
                     <div class="ratio ratio-1x1">
@@ -36,10 +36,10 @@
                     </div>
                     
                     <div class="card-body">
-                        <a href="{{route('article.show', compact('article'))}}" class="btn btn-primary my-3">Vai all'articolo!</a>
-                        <h5 class="card-title">{{$article->title}}</h5>
-                        <p class="card-text">{{$article->subtitle}}</p>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">{{$article->body}}</h6>
+                        <a href="{{route('article.show', compact('article'))}}" class="btn btn-primary my-3 w-100">Vai all'articolo completo!</a>
+                        <a href="{{route('article.edit', compact('article'))}}" class="btn btn-primary my-3 w-100">Modifica articolo</a>
+                        <h5 class="card-title fs-4 fw-bold">{{$article->title}}</h5>
+                        <p class="card-text fst-italic">{{$article->subtitle}}</p>
                         
                     </div>
                 </div>
