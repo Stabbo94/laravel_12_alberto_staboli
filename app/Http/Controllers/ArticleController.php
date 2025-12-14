@@ -7,6 +7,7 @@ use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -39,7 +40,8 @@ class ArticleController extends Controller
             'title' => $request->title,
             'subtitle' => $request->subtitle,
             'body' => $request->body,
-            'img' => $path
+            'img' => $path,
+            'user_id'=>Auth::user()->id
         ]);
         return redirect()->route('article.index')->with('successMessage', 'Articolo modificato correttamente');
     }
@@ -57,7 +59,11 @@ class ArticleController extends Controller
     */
     public function edit(Article $article)
     {
-        return view('article.edit', compact('article'));
+        if($article->user_id == Auth::user()->id){
+            return view('article.edit', compact('article'));
+        }else{
+            return redirect()->route('article.index')->with('errorMessage', 'Non puoi vedere questa pagina');
+        }
     }
     
     /**
@@ -65,20 +71,24 @@ class ArticleController extends Controller
     */
     public function update(ArticleEditRequest $request, Article $article)
     {
-        $article->update([
-            $article->title = $request->title,
-            $article->subtitle = $request->subtitle,
-            $article->body = $request->body,
-        ]);
-        
-        if($request->img){
-            $request->validate(['img'=>'image']);
+        if($article->user_id == Auth::user()->id){
             $article->update([
-                $article->img = $request->file('img')->store('img', 'public')
+                $article->title = $request->title,
+                $article->subtitle = $request->subtitle,
+                $article->body = $request->body,
             ]);
+            
+            if($request->img){
+                $request->validate(['img'=>'image']);
+                $article->update([
+                    $article->img = $request->file('img')->store('img', 'public'),
+                    
+                ]);
+            }
+            return redirect()->route('article.index')->with('successMessage', 'Articolo modificato correttamente');
+        }else{
+            return redirect()->route('article.index')->with('errorMessage', 'Non puoi vedere questa pagina');
         }
-        return redirect()->route('article.index')->with('successMessage', 'Articolo modificato correttamente');
-        
     }
     
     /**
@@ -86,7 +96,11 @@ class ArticleController extends Controller
     */
     public function destroy(Article $article)
     {
-        $article->delete();
-        return redirect()->route('article.index');
+        if($article->user_id == Auth::user()->id){
+            $article->delete();
+            return redirect()->route('article.index');
+        }else{
+            return redirect()->route('article.index')->with('errorMessage', 'Non puoi vedere questa pagina');
+        }
     }
 }

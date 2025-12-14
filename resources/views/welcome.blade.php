@@ -15,6 +15,23 @@
     </section>
     <!-- Fine Sezione blu con scritta e icona Home -->
     
+    <!-- Parte alert -->
+    <div class="container-fluid">
+        
+        @if(session()->has('successMessage'))
+        <div class="alert alert-success pt-5">
+            {{session('successMessage')}}
+        </div>
+        @endif
+        
+        @if(session()->has('errorMessage'))
+        <div class="alert alert-danger pt-5">
+            {{session('errorMessage')}}
+        </div>
+        @endif
+    </div>
+    <!-- Fine arte alert -->
+    
     <!-- Sezione Immagine travel -->
     <section>
         <div class="midsection bg-cover d-flex align-items-center justify-content-center">
@@ -109,33 +126,63 @@
                 <ul class="splide__list">
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/china.png')}}" alt="China" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            Cina
+                        </p>
                     </li>
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/azerbaijan.png')}}" alt="Azerbaijan" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            Azerbaijan
+                        </p>
                     </li>
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/united-states.png')}}" alt="USA" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            USA
+                        </p>
                     </li>
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/qatar.png')}}" alt="Qatar" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            Qatar
+                        </p>
                     </li>
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/south-korea.png')}}" alt="South Korea" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            Corea del Sud
+                        </p>
                     </li>
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/brazil.png')}}" alt="Brazil" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            Brasile
+                        </p>
                     </li>
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/nicaragua.png')}}" alt="Nicaragua" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            Nicaragua
+                        </p>
                     </li>
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/cuba.png')}}" alt="Cuba" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            Cuba
+                        </p>
                     </li>
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/iceland.png')}}" alt="Iceland" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            Islanda
+                        </p>
                     </li>
                     <li class="splide__slide text-center">
                         <img src="{{asset('images_countries/switzerland.png')}}" alt="Switzerland" class="country-icon">
+                        <p class="text-center text-justify fst-italic mt-3">
+                            Svizzera
+                        </p>
                     </li>
                 </ul>
             </div>
@@ -175,7 +222,7 @@
                     <p class="text-center text-justify mb-3">
                         Guida in lingua italiana per le visite pianificate ed extra
                     </p>
-                    <p class="text-center text-justify mb-3">
+                    <p class="text-center text-justify mb-0">
                         Sim virtuali pronte ed attive prima della partenza incluse nel pacchetto
                     </p>
                 </div>  
@@ -187,12 +234,25 @@
     <!-- Sezione contattaci -->
     <section class="text-center my-5 pb-5">
         <div class="container">
-            <h2 class="display-5 fw-bold mb-4">Per tutte le altre informazioni, contattaci!</h2>
+            <h2 class="display-5 fw-bold mb-4">Per tutte le altre informazioni contattaci!</h2>
             <p class="mb-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-headset" viewBox="0 0 16 16">
                     <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5"/>
                 </svg>     
             </p>
+        </div>
+    </section>
+    
+    
+    <section class="elements container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <div>
+                    <p class="text-center text-justify fst-italic">
+                        Il nostro Customer Service è a completa disposizione per preventivi, informazioni e supporto per il viaggio.
+                    </p>
+                </div>  
+            </div>
         </div>
     </section>
     <!-- Fine Sezione contattaci -->

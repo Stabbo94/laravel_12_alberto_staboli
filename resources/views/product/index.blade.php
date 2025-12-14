@@ -6,7 +6,7 @@
     </script>
     @endif
     
-    
+    <!-- Sezione blu -->
     <section class="text-bg-primary py-5">
         <div class="container text-center">
             <h1 class="mb-3">Consulta la lista dei nostri prodotti e pacchetti viaggi!</h1>
@@ -16,13 +16,15 @@
             </svg>
         </div>
     </section>
+    <!-- Fine Sezione blu -->
     
+    <!-- Area con tutte le card -->
     <div class="container py-4">
         <div class="row g-4 justify-content-center">
             
             @foreach ($products as $product)
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
-                <div class="card w-100 h-100">
+                <div class="card productcard w-100 h-100">
                     
                     <div class="ratio ratio-1x1">
                         @if(!$product->img)
@@ -37,29 +39,62 @@
                     </div>
                     
                     <div class="card-body">
-                        <h5 class="card-title mb-2 fw-bold">{{$product->name}}</h5>
+                        <h5 class="card-title mb-3 fw-bold">{{$product->name}}</h5>
                         <h6 class="card-subtitle mb-3 text-body-secondary fw-bolder">€ {{ number_format($product->price,2,',','.')}}</h6>
-                        <p class="card-text mb-0">{{$product->description}}</p>
+                        <p class="card-text mb-3">{{$product->description}}</p>
+                        <p class="card-text fst-italic mb-3">Creato da: {{$product->user->name}}</p>
                     </div>
-                </div>
+                    
+                    @auth
+                    @if($product->user_id == Auth::id())
+                    <div class="d-flex justify-content-center pb-3">                        
+                        <a href="{{ route('product.edit', compact('product')) }}" class="btn btn-outline-primary w-75">
+                            Modifica elemento
+                        </a> 
+                    </div>
+                    @endif
+                    @endauth
+                    
+                    
+                    <div class="d-flex justify-content-center pb-3">
+                        @auth
+                        @if($product->user_id == Auth::id())                       
+                        <form
+                        action="{{ route('product.delete', compact('product')) }}"
+                        method="POST"
+                        class="w-75 m-0 p-0">
+                        @csrf
+                        @method('DELETE')
+                        
+                        <button
+                        type="submit"
+                        class="btn btn-danger w-100">
+                        Elimina elemento
+                    </button>
+                    @endif
+                    @endauth               
+                </form>
+                
             </div>
-            @endforeach
-            
         </div>
     </div>
-    
-    <!-- Slider con servizi (2 sezioni)-->
-    <section class="elements container py-3">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
-                <div>
-                    <p class="text-center text-justify fst-italic">
-                        N.B. I prezzi esposti sono da considerare IVA Inclusa
-                    </p>
-                </div>  
-            </div>
+    @endforeach
+</div>
+</div>
+<!-- Fine Area con tutte le card -->
+
+<!-- Nota su prezzi -->
+<section class="elements container py-3">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div>
+                <p class="text-center text-justify fst-italic">
+                    N.B. I prezzi esposti sono da considerare IVA Inclusa
+                </p>
+            </div>  
         </div>
-    </section>
-    <!-- Fine Slider con servizi (2 sezioni)-->
-    
+    </div>
+</section>
+<!-- Fine Nota su prezzi -->
+
 </x-layout>

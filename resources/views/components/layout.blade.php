@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Around The World</title>
+    <title>Around The World Travel!</title>
     
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     
@@ -12,12 +12,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/general.js'])
     
 </head>
+
 <body>
     <x-navbar/>
     {{$slot}}
     
     <footer class="container-fluid">
-        <p class="text-center footertext">Around The World S.p.A. | Via Flaminia 795, 00135 Roma RM | Tel. +39 351 956 1478 | P.IVA 12556984588</p>
+        <p class="text-center footertext">Around The World S.r.l. | Viale Parioli 78, 00197 Roma RM | Tel. +39 06 33 15 528 | P.IVA 12556984588</p>
     </footer>
 </body>
 </html>

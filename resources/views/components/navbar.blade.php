@@ -33,6 +33,9 @@
                 @csrf
               </form>
             </li>
+            <li>
+              <a href="{{route('user.profile')}}"class="dropdown-item">Profilo utente</a>
+            </li>
           </ul>
           @else
           <li class="nav-item dropdown">

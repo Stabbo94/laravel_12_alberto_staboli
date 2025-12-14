@@ -13,6 +13,12 @@ class Article extends Model
         'title',
         'subtitle',
         'body',
-        'img'
+        'img',
+        'user_id'
     ];
+
+     public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

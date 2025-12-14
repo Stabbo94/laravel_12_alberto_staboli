@@ -18,7 +18,7 @@
         
         @foreach ($articles as $article)
         <div class="col-12 col-md-6 col-lg-4 d-flex">
-            <div class="card w-100 shadow-sm">
+            <div class="card articlecard w-100 shadow-sm">
                 
                 <div class="ratio ratio-1x1">
                     @if(!$article->img)
@@ -35,16 +35,21 @@
                 <div class="card-body d-flex flex-column">
                     
                     <h5 class="card-title fw-bold mb-1">{{ $article->title }}</h5>
-                    <p class="card-text fst-italic mb-3">{{ $article->subtitle }}</p>
+                    <p class="card-text mb-3">{{ $article->subtitle }}</p>
+                    <p class="card-text fst-italic">Pubblicato da: {{$article->user->name}}</p>
                     
                     <div class="mt-auto">
                         <a href="{{ route('article.show', compact('article')) }}" class="btn btn-primary w-100 mb-2">
                             Vai all'articolo completo
                         </a>
                         
+                        @auth
+                        @if($article->user_id == Auth::id())
                         <a href="{{ route('article.edit', compact('article')) }}" class="btn btn-outline-primary w-100">
                             Modifica articolo
                         </a>
+                        @endif
+                        @endauth
                     </div>
                     
                 </div>
