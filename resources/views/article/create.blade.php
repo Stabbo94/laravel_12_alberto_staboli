@@ -14,7 +14,7 @@
         </div>
     </section>
     <!-- Fine Sezione blu -->
-
+    
     <!-- Form per caricare -->    
     <section class="pb-4">
         <div class="container mt-3">
@@ -50,11 +50,23 @@
                         </div>
                         
                         <div class="mb-3">
+                            <label for="" class="form-label">Tags dell'articolo;</label>
+                            @foreach($tags as $tag)
+                            <div class="form-check my-2">
+                                <input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="checkDefault" name="tags[]">
+                                <label class="form-check-label" for="checkDefault">
+                                    {{$tag->name}}
+                                </label>
+                            </div>
+                            @endforeach
+                        </div>
+                        
+                        <div class="mb-3">
                             <label for="img" class="form-label">Aggiungi immagine;</label>
                             <input name="img" type="file" class="form-control" id="img">
                         </div>             
                         
-                        <button type="submit" class="btn btn-light w-100 mt-3 d-flex align-items-center justify-content-center">
+                        <button type="submit" class="btn btn-light w-100 mt-4 d-flex align-items-center justify-content-center">
                             Pubblica articolo
                         </button>
                         

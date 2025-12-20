@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ArticleEditRequest;
-use App\Http\Requests\ArticleRequest;
+use App\Models\Tag;
 use App\Models\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ArticleEditRequest;
 
 class ArticleController extends Controller
 {
@@ -16,7 +17,7 @@ class ArticleController extends Controller
     */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::with('user')->get();
         return view('article.index', compact('articles'));
     }
     
@@ -25,7 +26,8 @@ class ArticleController extends Controller
     */
     public function create()
     {
-        return view('article.create');
+        $tags = Tag::all();
+        return view('article.create', compact('tags'));
     }
     
     /**
@@ -36,14 +38,17 @@ class ArticleController extends Controller
         
         $path = $request->file('img')->store('img', 'public');
         
-        Article::create([
+        $article = Article::create([
             'title' => $request->title,
             'subtitle' => $request->subtitle,
             'body' => $request->body,
             'img' => $path,
             'user_id'=>Auth::user()->id
         ]);
-        return redirect()->route('article.index')->with('successMessage', 'Articolo modificato correttamente');
+        
+        $article->tags()->attach($request->tags);
+        
+        return redirect()->route('article.index')->with('successMessage', 'Articolo inserito correttamente');
     }
     
     /**
@@ -59,8 +64,10 @@ class ArticleController extends Controller
     */
     public function edit(Article $article)
     {
+        $tags = Tag::all();
+
         if($article->user_id == Auth::user()->id){
-            return view('article.edit', compact('article'));
+            return view('article.edit', compact('article', 'tags'));
         }else{
             return redirect()->route('article.index')->with('errorMessage', 'Non puoi vedere questa pagina');
         }
@@ -77,6 +84,8 @@ class ArticleController extends Controller
                 $article->subtitle = $request->subtitle,
                 $article->body = $request->body,
             ]);
+
+            $article->tags()->sync($request->tags);
             
             if($request->img){
                 $request->validate(['img'=>'image']);
@@ -97,6 +106,7 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         if($article->user_id == Auth::user()->id){
+            $article->tags()->detach();
             $article->delete();
             return redirect()->route('article.index');
         }else{

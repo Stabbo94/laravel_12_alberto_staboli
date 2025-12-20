@@ -36,7 +36,18 @@
                     
                     <h5 class="card-title fw-bold mb-1">{{ $article->title }}</h5>
                     <p class="card-text mb-3">{{ $article->subtitle }}</p>
-                    <p class="card-text fst-italic">Pubblicato da: {{$article->user->name}}</p>
+
+                    @if($article->tags->isNotEmpty())
+                    <div class="mb-3 d-flex flex-wrap">
+                        @foreach($article->tags as $tag)
+                        <span class="badge text-bg-secondary w-50 mx-1 my-1 text-wrap">#{{$tag->name}}</span>
+                        @endforeach
+                    </div>
+                    @endif
+
+                    <p class="card-text fst-italic">
+                        Pubblicato da: {{ $article->user?->name ?? 'Autore sconosciuto' }}
+                    </p>
                     
                     <div class="mt-auto">
                         <a href="{{ route('article.show', compact('article')) }}" class="btn btn-primary w-100 mb-2">

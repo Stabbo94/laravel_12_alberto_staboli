@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Article extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
         'title',
         'subtitle',
@@ -16,9 +17,16 @@ class Article extends Model
         'img',
         'user_id'
     ];
-
-     public function user()
+    
+    public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    
+    
+    // Many 2 Many 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

@@ -43,6 +43,22 @@
                         <label for="body" class="form-label">Contenuto dell'articolo;</label>
                         <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{$article->body}}</textarea>
                     </div>
+                    
+                    <div class="mb-3">
+                        <label for="" class="form-label">Tags dell'articolo;</label>
+                        @foreach($tags as $tag)
+                        <div class="form-check my-2">
+                            <input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="checkDefault" name="tags[]" 
+                            @if($article->tags->contains($tag))
+                            checked 
+                            @endif>
+                            <label class="form-check-label" for="checkDefault">
+                                {{$tag->name}}
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                    
                     <div class="mb-3">
                         <label for="img" class="form-label">Aggiungi immagine;</label>
                         <input name="img" type="file" class="form-control" id="img">

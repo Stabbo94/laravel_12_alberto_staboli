@@ -18,7 +18,7 @@
     {{$slot}}
     
     <footer class="container-fluid">
-        <p class="text-center footertext">Around The World S.r.l. | Viale Parioli 78, 00197 Roma RM | Tel. +39 06 33 15 528 | P.IVA 12556984588</p>
+        <p class="text-center footertext">Around The World S.r.l. | Viale Parioli 78, 00197 Roma RM | Tel. +39 06 331 5528 | P.IVA 12556984588</p>
     </footer>
 </body>
 </html>
