@@ -59,6 +59,7 @@
                                 </label>
                             </div>
                             @endforeach
+                            <p class="fst-italic">Non vedi il tag corretto? <a href="{{route('tag.create')}}">Inserisci il tag!</a></p>
                         </div>
                         
                         <div class="mb-3">

@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProductController;
-use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 
@@ -36,3 +37,7 @@ Route::delete('/article/delete/{article}', [ArticleController::class, 'destroy']
 
 // Profilo personale
 Route::get('/user/profile', [PublicController::class,'profile'])->name('user.profile');
+
+//Crea tag
+Route::get('/tag/create', [TagController::class, 'create'])->name('tag.create')->middleware('auth');
+Route::post('/tag/create/submit', [TagController::class, 'store'])->name('tag.submit')->middleware('auth');
