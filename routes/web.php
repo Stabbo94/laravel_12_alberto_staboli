@@ -41,3 +41,5 @@ Route::get('/user/profile', [PublicController::class,'profile'])->name('user.pro
 //Crea tag
 Route::get('/tag/create', [TagController::class, 'create'])->name('tag.create')->middleware('auth');
 Route::post('/tag/create/submit', [TagController::class, 'store'])->name('tag.submit')->middleware('auth');
+Route::get('/tag/index', [TagController::class, 'index'])->name('tag.index')->middleware('auth');
+Route::get('/tag/show/{tag}', [TagController::class, 'show'])->name('tag.show')->middleware('auth');

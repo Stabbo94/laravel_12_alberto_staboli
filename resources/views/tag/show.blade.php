@@ -1,10 +1,9 @@
 <x-layout>
     
-    
-    
+    <!-- Header Tag -->
     <section class="text-bg-primary py-5">
         <div class="container text-center">
-            <h1 class="mb-3">Leggi gli articoli pubblicati!</h1>
+            <h1 class="mb-3">Articoli per tag: <span>{{ $tag->name }}</span></h1>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
             class="bi bi-newspaper" viewBox="0 0 16 16">
             <path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5z"/>
@@ -13,13 +12,13 @@
     </div>
 </section>
 
+<!-- Articoli -->
 <div class="container my-5">
     <div class="row g-4 justify-content-center">
         
-        @foreach ($articles as $article)
+        @forelse($articles as $article)
         <div class="col-12 col-md-6 col-lg-4 d-flex">
             <div class="card articlecard w-100 shadow-sm">
-                
                 <div class="ratio ratio-1x1">
                     @if(!$article->img)
                     <img src="https://picsum.photos/400/400"
@@ -28,48 +27,34 @@
                     @else
                     <img src="{{ asset('storage/' . $article->img) }}"
                     class="w-100 h-100 object-fit-cover"
-                    alt="immagine di {{ $article->title }}">
+                    alt="{{ $article->title }}">
                     @endif
                 </div>
-                
                 <div class="card-body d-flex flex-column">
-                    
                     <h5 class="card-title fw-bold mb-1">{{ $article->title }}</h5>
                     <p class="card-text mb-3">{{ $article->subtitle }}</p>
-                    
-                    @if($article->tags->isNotEmpty())
-                    <div class="mb-3 d-flex flex-wrap">
-                        @foreach($article->tags as $tag)
-                        <span class="badge text-bg-secondary w-50 mx-1 my-1 text-wrap"><a href="{{route('tag.show', compact('tag'))}}" l>#{{$tag->name}}</a></span>
-                        @endforeach
-                    </div>
-                    @endif
-                    
-                    <p class="card-text fst-italic">
-                        Pubblicato da: {{ $article->user?->name ?? 'Autore sconosciuto' }}
-                    </p>
-                    
-                    <div class="mt-auto">
-                        <a href="{{ route('article.show', compact('article')) }}" class="btn btn-primary w-100 mb-2">
-                            Vai all'articolo completo
-                        </a>
-                        
-                        @auth
-                        @if($article->user_id == Auth::id())
-                        <a href="{{ route('article.edit', compact('article')) }}" class="btn btn-outline-primary w-100">
-                            Modifica articolo
-                        </a>
-                        @endif
-                        @endauth
-                    </div>
-                    
-                </div>
-                
+                    <div class="mt-auto d-grid gap-2">
+                        <a href="{{ route('article.show', compact('article')) }}"
+                        class="btn btn-primary w-100">
+                        Vai all'articolo completo
+                    </a>
+                    <a href="{{ route('article.edit', compact('article')) }}"
+                    class="btn btn-outline-primary w-100">
+                    Modifica articolo
+                </a>
             </div>
         </div>
-        @endforeach
-        
     </div>
+</div>
+@empty
+<div class="col-12 d-flex justify-content-center align-items-center min-vh-50">
+    <p class="text-center fst-italic min-vh-100">
+        Non ci sono articoli collegati a questo tag.
+    </p>
+</div>
+@endforelse
+
+</div>
 </div>
 
 </x-layout>

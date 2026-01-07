@@ -25,6 +25,9 @@
         <li class="nav-item">
           <a class="nav-link mx-2" href="{{route('tag.create')}}">Inserisci tag</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="{{route('tag.index')}}">Tutti i tags</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mx-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Ciao; {{Auth::user()->name}}!

@@ -35,6 +35,22 @@
     </div>
 </section>
 
+<!-- Tags -->
+<section class="py-3 mb-5">
+    <div class="container d-flex justify-content-center">
+        <div class="border border-white rounded p-4 w-100 text-start" style="max-width: 700px;">
+            <p>TAGS;</p>
+            <ul>
+                @forelse ($article->tags as $tag)
+                <li># {{$tag->name}}</li>
+                @empty
+                
+                @endforelse
+            </ul>
+        </div>
+    </div>
+</section>
+
 <!-- Bottone per eliminazione-->
 <div class="row m-0 p-0 pb-5 mb-5">
     @auth
